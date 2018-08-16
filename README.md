@@ -1,2 +1,4 @@
 # EasyPay
-Online payment system for Hutt City Council partking
+Assignment for IT7320
+
+Online oarking payment system for Hutt City Council
