@@ -29,26 +29,24 @@
 			<p><strong>Create an Account:</strong></p>
 			<label>Email Address:</label>
 			&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
-			<input type="email" name="email" placeholder="enter your email" class="form-control" id="email">
-			<br>
-			<label>First Name:</label>
-			&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
-			<input type="firstName" name="firstName" placeholder="enter your first name" class="form-control" id="firstName">
-			<br>
-			<label>LastName:</label>
-			&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-			<input type="lastName" name="lastName" placeholder="Enter your last name" class="form-control" id="lastName">
-			<br>
-			<label>Password:</label>
-			&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="password" name="password" placeholder="Enter your password" class="form-control" id="password">
-			<br>
-			<label>Re- Enter Password:</label>
-			&nbsp; &nbsp; &nbsp; 
-			<input type="reEnterPassword" name="reEnterPassword" placeholder="re-enter your password" class="form-control" id="reEnterPassword">
-			<br>
-			<br>
-			<button type="createAccount" name="createAccount" value="createAccount" class="button">Create Account</button>
+			<form action="${pageContext.request.contextPath}/rest/register" method="GET">
+				<input type="email" name="email" placeholder="enter your email" class="form-control" id="email">
+				<br>
+				<label>First Name:</label>
+				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+				<input type="text" name="firstName" placeholder="enter your first name" class="form-control" id="firstName">
+				<br>
+				<label>LastName:</label>
+				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+				<input type="text" name="lastName" placeholder="Enter your last name" class="form-control" id="lastName">
+				<br>
+				<label>Password:</label>
+				&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="password" name="password" placeholder="Enter your password" class="form-control" id="password">
+				<br>
+				<br>
+				<input type="submit" name="createAccount" value="Create Account" class="button">
+			</form>
 		</div>
 	</section>
 	</div>
