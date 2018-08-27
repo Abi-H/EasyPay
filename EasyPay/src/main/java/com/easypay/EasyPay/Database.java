@@ -38,18 +38,24 @@ public class Database {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return false;
 	}
 
-	public void getHistory(String username) {
-		try {
+	public ArrayList<String> getHistory(int cardID) throws SQLException {
+
 			ArrayList<String> fields = new ArrayList<>();
-			String sql = "SELECT date, amount FROM transactions WHERE email=?";
+			String sql = "SELECT date, amount FROM history WHERE cardID=?";
 
 			PreparedStatement preparedStmt = conn.prepareStatement(sql);
-			preparedStmt.setString(1, username);
+			preparedStmt.setInt(1, cardID);
 
 			ResultSet rs = preparedStmt.executeQuery();
 
@@ -57,22 +63,55 @@ public class Database {
 				fields.add(rs.getDate("date").toString());
 				fields.add(rs.getBigDecimal("amount").toString());
 			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+			
+			System.out.println("Retrieved history.");
+			conn.close();
+			
+			return fields;
 	}
 
 	public void updateBalance(int cardID, double amount) {
+		String sql = "SELECT balance FROM users WHERE cardID = ?";
+		double updatedBalance;
+
+		try {
+			PreparedStatement preparedStmt = conn.prepareStatement(sql);
+			preparedStmt.setInt(1, cardID);
+
+			ResultSet rs = preparedStmt.executeQuery();
+
+			if (rs.next()) {
+				updatedBalance = rs.getDouble("balance");
+				updatedBalance += amount;
+				sql = "UPDATE users SET balance = ? WHERE cardID = ?";
+
+				preparedStmt = conn.prepareStatement(sql);
+				preparedStmt.setDouble(1, updatedBalance);
+				preparedStmt.setInt(2, cardID);
+				preparedStmt.executeUpdate();
+				System.out.println("Updated balance.");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 
 	}
 
 	public ArrayList<String> getFields() {
+		System.out.println("Returning arraylist of size " + fields.size());
 		return fields;
 	}
 
 	public void addUser(int cardID, String email, String password, String firstName, String lastName) {
-	    double balance = 0;
+		double balance = 0;
 		String sql = "INSERT INTO users(cardID, email, password, firstName, lastName, balance) VALUES (?,?,?,?,?,?)";
 
 		try {
@@ -83,11 +122,18 @@ public class Database {
 			preparedStmt.setString(4, firstName);
 			preparedStmt.setString(5, lastName);
 			preparedStmt.setDouble(6, balance);
-			
-			preparedStmt.executeQuery();
-			
+
+			preparedStmt.executeUpdate();
+			System.out.println("Added user.");
+
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 	}
