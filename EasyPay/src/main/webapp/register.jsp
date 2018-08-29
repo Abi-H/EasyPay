@@ -1,60 +1,62 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>EasyPay Parking</title>
-	<link rel="shortcut icon" href="favicon.ico" />
-	<link rel="stylesheet" type="text/css" href="style.css">
-</head>
-<body>
-	<header id="main-header">
-		<div>
-			<img src="img/ban.png"/ >
-			 <img src="img/banner.jpg"/ >
-		</div>
-	</header>
-
-	<nav id="navbar">
-		<div class="container">
-			<ul>
-				<li><a href="#">Login</a></li>
-			</ul>
-		</div>
-	</nav>
-
-	<section id="showcase">
-		<div class="container">
-			<p><strong>Create an Account:</strong></p>
-			<label>Email Address:</label>
-			&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
-			<input type="email" name="email" placeholder="enter your email" class="form-control" id="email">
-			<br>
-			<label>First Name:</label>
-			&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
-			<input type="firstName" name="firstName" placeholder="enter your first name" class="form-control" id="firstName">
-			<br>
-			<label>LastName:</label>
-			&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-			<input type="lastName" name="lastName" placeholder="Enter your last name" class="form-control" id="lastName">
-			<br>
-			<label>Password:</label>
-			&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="password" name="password" placeholder="Enter your password" class="form-control" id="password">
-			<br>
-			<label>Re- Enter Password:</label>
-			&nbsp; &nbsp; &nbsp; 
-			<input type="reEnterPassword" name="reEnterPassword" placeholder="re-enter your password" class="form-control" id="reEnterPassword">
-			<br>
-			<br>
-			<button type="createAccount" name="createAccount" value="createAccount" class="button">Create Account</button>
-		</div>
-	</section>
-	</div>
-
-	<footer id="main-footer">
-		<p>Copyright &copy; 2018 The Hutt EasyPay Parking</p>
-	</footer>
-	</body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>EasyPay Parking</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/sticky-footer.css" rel="stylesheet">
+  </head>
+  <body>
+  <!-- Picture Header -->
+  <header id="main-header">
+    <div>
+      <img src="img/ban.png" class="img-rounded" alt="Cinque Terre"> 
+      <img src="img/banner.jpg" class="img-rounded" alt="Cinque Terre" width="1600">
+    </div>
+  </header>
+  <!-- Nav Bar -->
+  <nav class="navbar navbar-fixed-top" role="navigation">
+    <ul class="nav nav-tabs">
+      <li role="presentation" class="active"><a href="#">Login</a></li>
+      <li role="presentation"><a href="#">Register</a></li>
+      <li role="presentation"><a href="#">FAQ</a></li>
+    </ul>
+  </nav>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <!-- Sign in Box, created using panel -->
+  <div class="container">
+      <div class="panel panel-primary">
+      <div class="panel-heading"><center><Strong>Sign in</Strong></center></div>
+      <div class="panel-body">
+      <form action="${pageContext.request.contextPath}/rest/register" method="GET">
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" id="email" class="form-control" placeholder="email" required autofocus>
+        <br>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="password" class="form-control" placeholder="password" required auto>
+        <br>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+    </div>
+  </div>
+</div>
+    <!-- FOOTER -->
+  <footer class="footer">
+  <div class="container_footer text-center">
+        <span class="text-muted">Copyright &copy; 2018 The Hutt EasyPay Parking</span>
+      </div>
+  </footer>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugin (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+  </body>
 </html>

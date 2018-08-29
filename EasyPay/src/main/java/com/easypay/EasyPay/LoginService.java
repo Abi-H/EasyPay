@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -23,7 +24,7 @@ public class LoginService {
 	@Context
 	private ServletContext context;
 	
-	@POST
+	@GET
 	@Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	
@@ -32,8 +33,10 @@ public class LoginService {
 		Database db = new Database();
 		URI uri;
 		
+		System.out.println("Starting LoginService");
+		
 		if(db.checkCredentials(username, password)) {
-			String urlStr = "http://localhost:8080/CryptoMail" + "/dashboard.jsp" + "?name=" + username;
+			String urlStr = "http://localhost:8080/easypay/" + "dashboard.jsp" + "?name=" + username;
 			URL url= new URL(urlStr);			
 			uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
 		} else {
