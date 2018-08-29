@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>EasyPay Parking</title>
-    <!-- Bootstrap -->
+    <!-- Bootstrap  Starts-->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/sticky-footer.css" rel="stylesheet">
   </head>
