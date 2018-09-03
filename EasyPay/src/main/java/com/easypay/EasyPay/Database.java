@@ -20,12 +20,13 @@ public class Database {
 		this.uname = "root";
 		this.password = "";
 		fields = new ArrayList<>();
+		Class.forName("com.mysql.jdbc.Driver");
 		conn = DriverManager.getConnection(dbUrl, uname, password);
 	}
 
 	public boolean checkCredentials(String user, String pass) {
 		try {
-			String sql = "SELECT username,password FROM users WHERE email=? AND password=?";
+			String sql = "SELECT username,password FROM users WHERE username=? AND password=?";
 			PreparedStatement preparedStmt = conn.prepareStatement(sql);
 			preparedStmt.setString(1, user);
 			preparedStmt.setString(2, pass);
@@ -49,11 +50,11 @@ public class Database {
 		return false;
 	}
 
-	public ArrayList<String> getHistory(int cardID) throws SQLException {
+	public ArrayList<String> getHistory(int cardID){
 
 			ArrayList<String> fields = new ArrayList<>();
 			String sql = "SELECT date, amount FROM history WHERE cardID=?";
-
+			try {
 			PreparedStatement preparedStmt = conn.prepareStatement(sql);
 			preparedStmt.setInt(1, cardID);
 
@@ -65,7 +66,16 @@ public class Database {
 			}
 			
 			System.out.println("Retrieved history.");
-			conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
 			
 			return fields;
 	}
