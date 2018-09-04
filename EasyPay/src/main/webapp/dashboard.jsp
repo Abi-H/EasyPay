@@ -24,7 +24,6 @@
     <ul class="nav nav-tabs">
       <li role="presentation" class="active"><a href="#">Dashboard</a></li>
       <li role="presentation"><a href="#">Top Up</a></li>
-      <li role="presentation"><a href="#">FAQ</a></li>
       <li role="presentation"><a href="#">Logout</a></li>
     </ul>
   </nav>
