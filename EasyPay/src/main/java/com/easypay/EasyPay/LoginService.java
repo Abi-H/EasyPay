@@ -40,6 +40,7 @@ public class LoginService {
 			URL url= new URL(urlStr);			
 			uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
 		} else {
+			System.out.println("Login failure!");
 			uri = UriBuilder.fromPath(context.getContextPath() + "/login.jsp").build();
 		}
 		
