@@ -33,15 +33,22 @@ public class LoginService {
 		Database db = new Database();
 		URI uri;
 		
-		System.out.println("Starting LoginService");
+		System.out.println("SearchToken Starting EasyPay LoginService**********************************");
 		
 		if(db.checkCredentials(username, password)) {
+			System.out.println("SearchToken Valid EasyPay login************************************");
 			String urlStr = "http://localhost:8080/easypay/" + "dashboard.jsp" + "?name=" + username;
 			URL url= new URL(urlStr);			
 			uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
 		} else {
-			System.out.println("Login failure!");
+			System.out.println("SearchToken Invalid EasyPay login************************************");
 			uri = UriBuilder.fromPath(context.getContextPath() + "/login.jsp").build();
+			
+			// Added in for debugging/*
+			/*String urlStr = "http://localhost:8080/easypay/" + "dashboard.jsp" /*+ "?name=" + username;
+			URL url= new URL(urlStr);			
+			uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
+			//------------------------------------*/
 		}
 		
 		return Response.seeOther(uri).build();

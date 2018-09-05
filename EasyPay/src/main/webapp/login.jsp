@@ -38,10 +38,10 @@
       <div class="panel-body">
       	<form action="${pageContext.request.contextPath}/rest/login" method="GET">
         <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="email" class="form-control" placeholder="email" required autofocus>
+        <input type="email" name ="username" id="email" class="form-control" placeholder="email" required autofocus>
         <br>
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="password" class="form-control" placeholder="password" required auto>
+        <input type="password" name="password" id="password" class="form-control" placeholder="password" required auto>
         <br>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
     </div>
