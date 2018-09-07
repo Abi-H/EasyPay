@@ -22,7 +22,7 @@
   <!-- Nav Bar -->
   <nav class="navbar navbar-fixed-top" role="navigation">
     <ul class="nav nav-tabs">
-      <li role="presentation" class="active"><a href="#">Register</a></li>
+      <li role="presentation" class="active"><a href=#">Logout</a></li>
       <li role="presentation"><a href="#">Login</a></li>
     </ul>
   </nav>
@@ -33,20 +33,11 @@
   <br>
   <!-- Sign in Box, created using panel -->
   <div class="container">
-      <div class="panel panel-primary">
-      <div class="panel-heading"><center><Strong><h2>Register</h2></Strong></center></div>
+    <div class="panel panel-primary">
+      <div class="panel-heading"><center><Strong><h2>You have successfully logged out!</h2></Strong></center></div>
       <div class="panel-body">
-      <form action="${pageContext.request.contextPath}/rest/register" method="GET">
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" name="username" id="email" class="form-control" placeholder="email" required autofocus>
         <br>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" name="password" id="password" class="form-control" placeholder="password" required auto>
-        <br>
-        <label for="inputCardID" class="sr-only">Card Number</label>
-        <input type="inputCardID" name="cardID" id="cardID" class="form-control" placeholder="cardID" required auto>
-        <br>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">To log in again, click this button.</button>
     </div>
   </div>
 </div>
@@ -56,6 +47,8 @@
         <span class="text-muted">Copyright &copy; 2018 The Hutt EasyPay Parking</span>
       </div>
   </footer>
+
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

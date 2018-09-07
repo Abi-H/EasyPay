@@ -15,8 +15,8 @@
   <!-- Picture Header -->
   <header id="main-header">
     <div>
-      <img src="img/ban.png" class="img-rounded" alt="Cinque Terre"> 
-      <img src="img/banner.jpg" class="img-rounded" alt="Cinque Terre" width="1600">
+      <center>
+      <img src="img/hutt.jpg" class="img-rounded" alt="Cinque Terre" width="700" height="40"> 
     </div>
   </header>
   <!-- Nav Bar -->
@@ -24,7 +24,6 @@
     <ul class="nav nav-tabs">
       <li role="presentation" class="active"><a href="#">Dashboard</a></li>
       <li role="presentation"><a href="#">Top Up</a></li>
-      <li role="presentation"><a href="#">FAQ</a></li>
       <li role="presentation"><a href="#">Logout</a></li>
     </ul>
   </nav>
@@ -36,14 +35,14 @@
   <!-- Sign in Box, created using panel -->
   <div class="container">
       <div class="panel panel-primary text-center">
-      <div class="panel-heading"><center><Strong>EasyPay Balance</Strong></center></div>
-        <label for="firstName" placeholder="firstName"><h3><strong>Marie_EasyPay</strong></h3></label>
+      <div class="panel-heading"><center><Strong><h2>EasyPay Balance</h2></Strong></center></div>
+        <label for="firstName" name="firstName" placeholder="firstName"><h3><strong>Marie_EasyPay</strong></h3></label>
         <br>
         <label for="cardID">EasyPay Card ID:</label>
-        <label for="cardID" placeholder="cardID">0212-1245-1247</label>
+        <label for="cardID" name="cardID" placeholder="cardID">0212-1245-1247</label>
         <br>
         <label for="balance">Balance:</label>
-        <label for="balance" placeholder="balance">$17.00</label>
+        <label for="balance" name="balance" placeholder="balance">$17.00</label>
         <br>
   <!-- Drop Down Button -->      
         <p>
@@ -55,17 +54,19 @@
         <table class="table">
         <thead>
           <tr>
-            <th scope="col" placeholder="autonumber">Number</th>
-            <th scope="col"placeholder="date">Date</th>
-            <th scope="col"placeholder="description">Description</th>
-            <th scope="col"placeholder="total">Total</th>
-            <th scope="col"placeholder="balance">Balance</th>
+            <th scope="col" name="number" placeholder="autonumber">Number</th>
+            <th scope="col" name="date" placeholder="date">Date</th>
+            <th scope="col" name="transactionTime" placeholder="transactionTime">Transaction Time</th>
+            <th scope="col" name="description" placeholder="description">Description</th>
+            <th scope="col"name="total" placeholder="total">Total</th>
+            <th scope="col" name="balance" placeholder="balance">Balance</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <th scope="row">1</th>
             <td>29 Aug 2018</td>
+            <td>8:00 PM</td>
             <td>Waiwhetu Rd</td>
             <td>-$1.50</td>
             <td>$17.00</td>
@@ -73,6 +74,7 @@
           <tr>
             <th scope="row">2</th>
             <td>28 Aug 2018</td>
+            <td>9:00 PM</td>
             <td>Nae Nae Rd</td>
             <td>-$1.50</td>
             <td>$18.50</td>
@@ -80,6 +82,7 @@
           <tr>
             <th scope="row">3</th>
             <td>27 Aug 2018</td>
+            <td>3:00 PM</td>
             <td>Waterloo Rd</td>
             <td>-$1.50</td>
             <td>$20.00</td>
@@ -87,6 +90,7 @@
           <tr>
             <th scope="row">4</th>
             <td>26 Aug 2018</td>
+            <td>4:00 PM</td>
             <td>Parnell St</td>
             <td>-$1.50</td>
             <td>$21.50</td>

@@ -34,6 +34,7 @@ public class Database {
 			ResultSet rs = preparedStmt.executeQuery();
 
 			if (rs.next()) {
+				System.out.println("Credentials valid ***********************************");
 				return true;
 			}
 
@@ -74,9 +75,7 @@ public class Database {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
-			}
-			
-			
+			}			
 			return fields;
 	}
 
@@ -146,5 +145,23 @@ public class Database {
 			}
 		}
 
+	}
+	
+	public void closeConnection(Connection conn) {
+		if(conn != null) {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public boolean isClosed(Connection conn) {
+		if (conn != null) {
+			return false;
+		}
+		
+		return true;
 	}
 }
