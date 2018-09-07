@@ -15,8 +15,8 @@
   <!-- Picture Header -->
   <header id="main-header">
     <div>
-      <img src="img/ban.png" class="img-rounded" alt="Cinque Terre"> 
-      <img src="img/banner.jpg" class="img-rounded" alt="Cinque Terre" width="1600">
+      <center>
+      <img src="img/hutt.jpg" class="img-rounded" alt="Cinque Terre" width="700" height="40"> 
     </div>
   </header>
   <!-- Nav Bar -->
@@ -35,7 +35,7 @@
   <!-- Sign in Box, created using panel -->
   <div class="container">
       <div class="panel panel-primary">
-      <div class="panel-heading"><center><Strong>Payment Method</Strong></center></div>
+      <div class="panel-heading"><center><Strong><h2>Payment Method</h2></Strong></center></div>
       <div class="panel-body">
       <div class="container">
       <form class="form-horizontal" role="form">
@@ -44,27 +44,27 @@
       <div class="form-group">
         <label class="col-sm-3 control-label" for="amount">Amount</label>
           <div class="col-sm-3">
-          <input type="text" class="form-control" name="amount" id="amount" placeholder="Amount to Top Up">
+          <input type="text" name="amount" class="form-control" name="amount" id="amount" placeholder="Amount to Top Up">
           </div>
       </div>
       <div class="form-group">
         <label class="col-sm-3 control-label" for="card-holder-name">Name on Card</label>
           <div class="col-sm-6">
-          <input type="text" class="form-control" name="card-holder-name" id="card-holder-name" placeholder="Card Holder's Name">
+          <input type="text" name="cardHolderName" class="form-control" name="cardHolderName" id="cardHolderName" placeholder="Card Holder's Name">
           </div>
       </div>
       <div class="form-group">
           <label class="col-sm-3 control-label" for="card-number">Card Number</label>
           <div class="col-sm-6">
-          <input type="text" class="form-control" name="card-number" id="card-number" placeholder="Debit/Credit Card Number">
+          <input type="text" nam="cardNumber" class="form-control" name="cardNumber" id="cardNumber" placeholder="Debit/Credit Card Number">
           </div>
       </div>
       <div class="form-group">
-          <label class="col-sm-3 control-label" for="expiry-month">Expiration Date</label>
+          <label class="col-sm-3 control-label" for="expiryMonth">Expiration Date</label>
           <div class="col-sm-6">
           <div class="row">
           <div class="col-xs-3">
-        <select class="form-control col-sm-2" name="expiry-month" id="expiry-month">
+        <select class="form-control col-sm-2" name="expiryMonth" id="expiryMonth">
                 <option>Month</option>
                 <option value="01">Jan (01)</option>
                 <option value="02">Feb (02)</option>
@@ -81,7 +81,7 @@
         </select>
         </div>
         <div class="col-xs-3">
-        <select class="form-control" name="expiry-year">
+        <select class="form-control" name="expiryYear">
                 <option value="13">2013</option>
                 <option value="14">2014</option>
                 <option value="15">2015</option>
@@ -101,7 +101,7 @@
       <div class="form-group">
         <label class="col-sm-3 control-label" for="cvv">Card CVV</label>
         <div class="col-sm-3">
-        <input type="text" class="form-control" name="cvv" id="cvv" placeholder="Security Code">
+        <input type="text" name="cvv" class="form-control" id="cvv" placeholder="Security Code">
         </div>
       </div>
       <div class="form-group">

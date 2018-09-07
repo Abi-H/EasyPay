@@ -15,8 +15,8 @@
   <!-- Picture Header -->
   <header id="main-header">
     <div>
-      <img src="img/ban.png" class="img-rounded" alt="Cinque Terre"> 
-      <img src="img/banner.jpg" class="img-rounded" alt="Cinque Terre" width="1600">
+	<center>
+    <img src="img/hutt.jpg" class="img-rounded" alt="Cinque Terre" width="700" height="40"> 
     </div>
   </header>
   <!-- Nav Bar -->
@@ -34,7 +34,7 @@
   <!-- Sign in Box, created using panel -->
   <div class="container">
       <div class="panel panel-primary">
-      <div class="panel-heading"><center><Strong>Sign in</Strong></center></div>
+      <div class="panel-heading"><center><Strong><h2>Sign in</h2></Strong></center></div>
       <div class="panel-body">
       	<form action="${pageContext.request.contextPath}/rest/login" method="GET">
         <label for="inputEmail" class="sr-only">Email address</label>

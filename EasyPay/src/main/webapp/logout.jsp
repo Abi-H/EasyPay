@@ -15,8 +15,8 @@
   <!-- Picture Header -->
   <header id="main-header">
     <div>
-      <img src="img/ban.png" class="img-rounded" alt="Cinque Terre"> 
-      <img src="img/banner.jpg" class="img-rounded" alt="Cinque Terre" width="1600">
+      <center>
+      <img src="img/hutt.jpg" class="img-rounded" alt="Cinque Terre" width="700" height="40"> 
     </div>
   </header>
   <!-- Nav Bar -->
@@ -34,7 +34,7 @@
   <!-- Sign in Box, created using panel -->
   <div class="container">
     <div class="panel panel-primary">
-      <div class="panel-heading"><center><Strong>You have successfully logged out!</Strong></center></div>
+      <div class="panel-heading"><center><Strong><h2>You have successfully logged out!</h2></Strong></center></div>
       <div class="panel-body">
         <br>
         <button class="btn btn-lg btn-primary btn-block" type="submit">To log in again, click this button.</button>
