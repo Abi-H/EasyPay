@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page import="java.util.*" %>
+	<% 		
+		String name = request.getParameter("name");
+		session.setAttribute("username", name); 
+        Database db = new Database();
+        String cardID = db.getCardId(session.getAttribute("username").toString());
+        String balance = db.getBalance(session.getAttribute("username").toString());
+        db.getHistory(Integer.parseInt(cardID));
+        ArrayList <String> fields = db.getFields();
+     %>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -12,11 +22,12 @@
     <link href="css/sticky-footer.css" rel="stylesheet">
   </head>
   <body>
+  <%@ page import="com.easypay.EasyPay.Database" %>
   <!-- Picture Header -->
   <header id="main-header">
     <div>
-      <center>
-      <img src="img/hutt.jpg" class="img-rounded" alt="Cinque Terre" width="700" height="40"> 
+      <img src="img/ban.png" class="img-rounded" alt="Cinque Terre"> 
+      <img src="img/banner.jpg" class="img-rounded" alt="Cinque Terre" width="1600">
     </div>
   </header>
   <!-- Nav Bar -->
@@ -35,14 +46,15 @@
   <!-- Sign in Box, created using panel -->
   <div class="container">
       <div class="panel panel-primary text-center">
-      <div class="panel-heading"><center><Strong><h2>EasyPay Balance</h2></Strong></center></div>
-        <label for="firstName" name="firstName" placeholder="firstName"><h3><strong>Marie_EasyPay</strong></h3></label>
+      <div class="panel-heading"><center><Strong>EasyPay Balance</Strong></center></div>
+        <label for="firstName" placeholder="firstName"><h3><strong><%=session.getAttribute("username")%></strong></h3></label>
         <br>
-        <label for="cardID">EasyPay Card ID:</label>
-        <label for="cardID" name="cardID" placeholder="cardID">0212-1245-1247</label>
+        <label for="cardID">
+        </label>
+        <label for="cardID" placeholder="cardID"><%=cardID%></label>
         <br>
         <label for="balance">Balance:</label>
-        <label for="balance" name="balance" placeholder="balance">$17.00</label>
+        <label for="balance" placeholder="balance"><%=balance%></label>
         <br>
   <!-- Drop Down Button -->      
         <p>
@@ -54,47 +66,24 @@
         <table class="table">
         <thead>
           <tr>
-            <th scope="col" name="number" placeholder="autonumber">Number</th>
-            <th scope="col" name="date" placeholder="date">Date</th>
-            <th scope="col" name="transactionTime" placeholder="transactionTime">Transaction Time</th>
-            <th scope="col" name="description" placeholder="description">Description</th>
-            <th scope="col"name="total" placeholder="total">Total</th>
-            <th scope="col" name="balance" placeholder="balance">Balance</th>
+            <th scope="col" placeholder="autonumber">Number</th>
+            <th scope="col"placeholder="date">Date</th>
+            <th scope="col"placeholder="description">Description</th>
+            <th scope="col"placeholder="total">Total</th>
+            <th scope="col"placeholder="balance">Balance</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>29 Aug 2018</td>
-            <td>8:00 PM</td>
-            <td>Waiwhetu Rd</td>
-            <td>-$1.50</td>
-            <td>$17.00</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>28 Aug 2018</td>
-            <td>9:00 PM</td>
-            <td>Nae Nae Rd</td>
-            <td>-$1.50</td>
-            <td>$18.50</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>27 Aug 2018</td>
-            <td>3:00 PM</td>
-            <td>Waterloo Rd</td>
-            <td>-$1.50</td>
-            <td>$20.00</td>
-          </tr>
-          <tr>
-            <th scope="row">4</th>
-            <td>26 Aug 2018</td>
-            <td>4:00 PM</td>
-            <td>Parnell St</td>
-            <td>-$1.50</td>
-            <td>$21.50</td>
-          </tr>
+          <%
+          	String entry;
+          	for(int i = 0; i < fields.size(); i++){
+        		entry = fields.get(i++); %>      		
+            	<td><%=entry%></td>           	
+            	<% entry = fields.get(i++); %>
+	            <td><%=entry %> </td>
+        	    <% entry = fields.get(i++); %>
+	            <td><%=entry %> </td>
+          	<%} %>         
         </tbody>
       </table> 
         </div>

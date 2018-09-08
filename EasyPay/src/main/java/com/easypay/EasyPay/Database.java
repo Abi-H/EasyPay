@@ -34,7 +34,6 @@ public class Database {
 			ResultSet rs = preparedStmt.executeQuery();
 
 			if (rs.next()) {
-				System.out.println("Credentials valid ***********************************");
 				return true;
 			}
 
@@ -51,11 +50,11 @@ public class Database {
 		return false;
 	}
 
-	public ArrayList<String> getHistory(int cardID){
+	public ArrayList<String> getHistory(int cardID) {
 
-			ArrayList<String> fields = new ArrayList<>();
-			String sql = "SELECT date, amount FROM history WHERE cardID=?";
-			try {
+		ArrayList<String> fields = new ArrayList<>();
+		String sql = "SELECT date, amount FROM history WHERE cardID=?";
+		try {
 			PreparedStatement preparedStmt = conn.prepareStatement(sql);
 			preparedStmt.setInt(1, cardID);
 
@@ -65,18 +64,18 @@ public class Database {
 				fields.add(rs.getDate("date").toString());
 				fields.add(rs.getBigDecimal("amount").toString());
 			}
-			
+
 			System.out.println("Retrieved history.");
-			} catch (Exception e) {
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
 				e.printStackTrace();
-			} finally {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}			
-			return fields;
+			}
+		}
+		return fields;
 	}
 
 	public void updateBalance(int cardID, double amount) {
@@ -146,9 +145,50 @@ public class Database {
 		}
 
 	}
+
+	public String getCardId(String username) {
+		String sql = "SELECT cardID FROM users WHERE username=?";
+
+		try {
+			PreparedStatement preparedStmt = conn.prepareStatement(sql);
+			preparedStmt.setString(1, username);
+			ResultSet rs = preparedStmt.executeQuery();
+
+			if (rs.next()) {
+				String result = rs.getString("cardID");
+				return result;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
 	
+	public String getBalance(String username) {
+		String sql = "SELECT balance FROM users WHERE username=?";
+		
+		try {
+			PreparedStatement preparedStmt = conn.prepareStatement(sql);
+			preparedStmt.setString(1, username);
+			ResultSet rs = preparedStmt.executeQuery();
+			
+			if(rs.next()) {
+				Double result = rs.getDouble("balance");
+				String roundedResult = String.format("%.2f", result);
+				return roundedResult;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "";
+	}
+
 	public void closeConnection(Connection conn) {
-		if(conn != null) {
+		if (conn != null) {
 			try {
 				conn.close();
 			} catch (SQLException e) {
@@ -156,12 +196,12 @@ public class Database {
 			}
 		}
 	}
-	
+
 	public boolean isClosed(Connection conn) {
 		if (conn != null) {
 			return false;
 		}
-		
+
 		return true;
 	}
 }
