@@ -37,9 +37,13 @@ public class LoginService {
 		Database db = new Database();
 		URI uri;
 		
+		request.getSession().setAttribute("username", username);
+		
 		if(db.checkCredentials(username, password)) {
 						
 			String urlStr = "http://localhost:8080/EasyPay" + "/dashboard.jsp" + "?name=" + username;
+			
+			//Encode URL
 			URL url= new URL(urlStr);			
 			uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
 			

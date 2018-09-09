@@ -1,17 +1,26 @@
-<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page import="java.util.*" %>
-	<% 		
-		String name = request.getParameter("name");
-		session.setAttribute("username", name); 
-        Database db = new Database();
-        String cardID = db.getCardId(session.getAttribute("username").toString());
-        String balance = db.getBalance(session.getAttribute("username").toString());
-        db.getHistory(Integer.parseInt(cardID));
-        ArrayList <String> fields = db.getFields();
-     %>
+<% 	
+		
+	//String name = session.getAttribute("username").toString();
+	String name;
+	
+	if(session == null){
+		name = request.getParameter("name");
+		session = request.getSession();
+		session.setAttribute("username", name);
+	} else {
+		name = session.getAttribute("username").toString();
+	}
+		
+	Database db = new Database();
+	String cardID = db.getCardId(name);       
+    String balance = db.getBalance(session.getAttribute("username").toString());
+    db.getHistory(Integer.parseInt(cardID));
+    ArrayList <String> fields = db.getFields();              
+%>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -34,9 +43,9 @@
   <!-- Nav Bar -->
   <nav class="navbar navbar-fixed-top" role="navigation">
     <ul class="nav nav-tabs">
-      <li role="presentation" class="active"><a href="#">Dashboard</a></li>
-      <li role="presentation"><a href="#">Top Up</a></li>
-      <li role="presentation"><a href="#">Logout</a></li>
+      <li role="presentation" class="active"><a href="dashboard.jsp">Dashboard</a></li>
+      <li role="presentation"><a href="topup.jsp">Top Up</a></li>
+      <li role="presentation"><a href="logout.jsp">Logout</a></li>
     </ul>
   </nav>
   <br>
@@ -67,24 +76,35 @@
         <table class="table">
         <thead>
           <tr>
-            <th scope="col" placeholder="autonumber">Number</th>
-            <th scope="col"placeholder="date">Date</th>
-            <th scope="col"placeholder="description">Description</th>
-            <th scope="col"placeholder="total">Total</th>
-            <th scope="col"placeholder="balance">Balance</th>
+            <th scope="col" placeholder="autonumber">Card ID</th>
+            <th scope="col"placeholder="date">Amount</th>
+            <th scope="col"placeholder="description">Location</th>
+            <th scope="col"placeholder="total">Date</th>
+            <th scope="col"placeholder="balance">Time</th>
           </tr>
         </thead>
         <tbody>
           <%
           	String entry;
-          	for(int i = 0; i < fields.size(); i++){
-        		entry = fields.get(i++); %>      		
-            	<td><%=entry%></td>           	
-            	<% entry = fields.get(i++); %>
-	            <td><%=entry %> </td>
+          	for(int i = 0; i < fields.size(); i++){ %>
+          	
+          		<tr>
+        		<% entry = fields.get(i++); %>        		    		
+            	<td><%= entry%></td>  
+            	           	       	
+            	<% entry = fields.get(i++); %>           	
+	            <td><%= entry %> </td>
+	            
         	    <% entry = fields.get(i++); %>
-	            <td><%=entry %> </td>
-          	<%} %>         
+	            <td><%= entry %> </td>
+	            
+	            <% entry = fields.get(i++); %>
+	            <td><%= entry %> </td>
+	            
+	            <% entry = fields.get(i++); %>
+	            <td><%= entry %> </td>
+	            </tr>	            
+          	<% } %>         
         </tbody>
       </table> 
         </div>

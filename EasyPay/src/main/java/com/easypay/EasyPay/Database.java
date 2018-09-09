@@ -53,16 +53,21 @@ public class Database {
 	public ArrayList<String> getHistory(int cardID) {
 
 		ArrayList<String> fields = new ArrayList<>();
-		String sql = "SELECT date, amount FROM history WHERE cardID=?";
+		String sql = "SELECT amount, location, date, time FROM history WHERE cardID=?";
 		try {
 			PreparedStatement preparedStmt = conn.prepareStatement(sql);
 			preparedStmt.setInt(1, cardID);
 
 			ResultSet rs = preparedStmt.executeQuery();
 
-			while (rs.next()) {
+			while (rs.next()) {				
+				double amount = rs.getDouble("amount");
+				String amountString = String.valueOf(amount);
+				fields.add(rs.getString(amountString));
+				fields.add(rs.getString("location"));
+				fields.add(rs.getString("location").toString());
 				fields.add(rs.getDate("date").toString());
-				fields.add(rs.getBigDecimal("amount").toString());
+				fields.add(rs.getString("time"));				
 			}
 
 			System.out.println("Retrieved history.");
@@ -78,24 +83,29 @@ public class Database {
 		return fields;
 	}
 
-	public void updateBalance(int cardID, double amount) {
-		String sql = "SELECT balance FROM users WHERE cardID = ?";
+//	public void updateBalance(int cardID, double amount) {
+	public void updateBalance(String username, double amount) {
+//		String sql = "SELECT balance FROM users WHERE cardID = ?";
+		String sql = "SELECT balance FROM user WHERE username= = ?";
 		double updatedBalance;
 
 		try {
 			PreparedStatement preparedStmt = conn.prepareStatement(sql);
-			preparedStmt.setInt(1, cardID);
+//			preparedStmt.setInt(1, cardID);
+			preparedStmt.setString(1, username);
 
 			ResultSet rs = preparedStmt.executeQuery();
 
 			if (rs.next()) {
 				updatedBalance = rs.getDouble("balance");
 				updatedBalance += amount;
-				sql = "UPDATE users SET balance = ? WHERE cardID = ?";
+//				sql = "UPDATE users SET balance = ? WHERE cardID = ?";
+				sql = "UPDATE user SET balance =? WHERE username = ?";
 
 				preparedStmt = conn.prepareStatement(sql);
 				preparedStmt.setDouble(1, updatedBalance);
-				preparedStmt.setInt(2, cardID);
+//				preparedStmt.setInt(2, cardID);
+				preparedStmt.setString(2,  username);
 				preparedStmt.executeUpdate();
 				System.out.println("Updated balance.");
 			}
@@ -114,7 +124,6 @@ public class Database {
 	}
 
 	public ArrayList<String> getFields() {
-		System.out.println("Returning arraylist of size " + fields.size());
 		return fields;
 	}
 
