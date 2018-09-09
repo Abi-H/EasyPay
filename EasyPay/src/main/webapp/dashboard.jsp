@@ -16,8 +16,6 @@
 	Database db = new Database();
 	String cardID = db.getCardId(name);       
     String balance = db.getBalance(session.getAttribute("username").toString());
-   // db.getHistory(Integer.parseInt(cardID));
-    //ArrayList <String> fields = db.getFields();
     ArrayList <String> fields = db.getHistory(Integer.parseInt(cardID));
 %>
 <html lang="en">
@@ -75,11 +73,10 @@
         <table class="table">
         <thead>
           <tr>
-            <th scope="col" placeholder="autonumber">Card ID</th>
             <th scope="col"placeholder="date">Amount</th>
             <th scope="col"placeholder="description">Location</th>
             <th scope="col"placeholder="total">Date</th>
-            <th scope="col"placeholder="balance">Time</th> <%=fields.size() %>
+            <th scope="col"placeholder="balance">Time</th>
           </tr>
         </thead>
         <tbody>
@@ -87,12 +84,9 @@
           	String entry;
           	for(int i = 0; i < fields.size(); i++){ %>
           	
-          		<tr>
-        		<% entry = fields.get(i++); %>        		    		
-            	<td><%= entry%></td>  
-            	           	       	
+          		<tr>             	           	       	
             	<% entry = fields.get(i++); %>           	
-	            <td><%= entry %> </td>
+	            <td>$<%= entry %> </td>
 	            
         	    <% entry = fields.get(i++); %>
 	            <td><%= entry %> </td>
@@ -100,8 +94,9 @@
 	            <% entry = fields.get(i++); %>
 	            <td><%= entry %> </td>
 	            
-	            <% entry = fields.get(i++); %>
+	            <% entry = fields.get(i); %>
 	            <td><%= entry %> </td>
+	            
 	            </tr>	            
           	<% } %>         
         </tbody>
