@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class Database {
@@ -13,13 +14,11 @@ public class Database {
 	private String uname;
 	String password;
 	Connection conn;
-	ArrayList<String> fields;
 
 	public Database() throws ClassNotFoundException, SQLException {
 		this.dbUrl = "jdbc:mysql://localhost:3306/easypay";
 		this.uname = "root";
 		this.password = "";
-		fields = new ArrayList<>();
 		Class.forName("com.mysql.jdbc.Driver");
 		conn = DriverManager.getConnection(dbUrl, uname, password);
 	}
@@ -54,6 +53,7 @@ public class Database {
 
 		ArrayList<String> fields = new ArrayList<>();
 		String sql = "SELECT amount, location, date, time FROM history WHERE cardID=?";
+		
 		try {
 			PreparedStatement preparedStmt = conn.prepareStatement(sql);
 			preparedStmt.setInt(1, cardID);
@@ -65,12 +65,10 @@ public class Database {
 				String amountString = String.valueOf(amount);
 				fields.add(rs.getString(amountString));
 				fields.add(rs.getString("location"));
-				fields.add(rs.getString("location").toString());
 				fields.add(rs.getDate("date").toString());
 				fields.add(rs.getString("time"));				
 			}
 
-			System.out.println("Retrieved history.");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -86,8 +84,8 @@ public class Database {
 //	public void updateBalance(int cardID, double amount) {
 	public void updateBalance(String username, double amount) {
 //		String sql = "SELECT balance FROM users WHERE cardID = ?";
-		String sql = "SELECT balance FROM user WHERE username= = ?";
-		double updatedBalance;
+		String sql = "SELECT balance FROM users WHERE username = ?";
+		
 
 		try {
 			PreparedStatement preparedStmt = conn.prepareStatement(sql);
@@ -97,17 +95,17 @@ public class Database {
 			ResultSet rs = preparedStmt.executeQuery();
 
 			if (rs.next()) {
+				double updatedBalance;
 				updatedBalance = rs.getDouble("balance");
 				updatedBalance += amount;
 //				sql = "UPDATE users SET balance = ? WHERE cardID = ?";
-				sql = "UPDATE user SET balance =? WHERE username = ?";
+				sql = "UPDATE users SET balance =? WHERE username = ?";
 
 				preparedStmt = conn.prepareStatement(sql);
 				preparedStmt.setDouble(1, updatedBalance);
 //				preparedStmt.setInt(2, cardID);
 				preparedStmt.setString(2,  username);
 				preparedStmt.executeUpdate();
-				System.out.println("Updated balance.");
 			}
 
 		} catch (SQLException e) {
@@ -121,10 +119,6 @@ public class Database {
 			}
 		}
 
-	}
-
-	public ArrayList<String> getFields() {
-		return fields;
 	}
 
 	public void addUser(int cardID, String email, String password, String firstName, String lastName) {

@@ -3,8 +3,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page import="java.util.*" %>
 <% 	
-		
-	//String name = session.getAttribute("username").toString();
 	String name;
 	
 	if(session == null){
@@ -18,8 +16,9 @@
 	Database db = new Database();
 	String cardID = db.getCardId(name);       
     String balance = db.getBalance(session.getAttribute("username").toString());
-    db.getHistory(Integer.parseInt(cardID));
-    ArrayList <String> fields = db.getFields();              
+   // db.getHistory(Integer.parseInt(cardID));
+    //ArrayList <String> fields = db.getFields();
+    ArrayList <String> fields = db.getHistory(Integer.parseInt(cardID));
 %>
 <html lang="en">
   <head>
@@ -80,7 +79,7 @@
             <th scope="col"placeholder="date">Amount</th>
             <th scope="col"placeholder="description">Location</th>
             <th scope="col"placeholder="total">Date</th>
-            <th scope="col"placeholder="balance">Time</th>
+            <th scope="col"placeholder="balance">Time</th> <%=fields.size() %>
           </tr>
         </thead>
         <tbody>

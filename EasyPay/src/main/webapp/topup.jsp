@@ -33,7 +33,7 @@
     <ul class="nav nav-tabs">
       <li role="presentation" class="active"><a href="#">Top Up</a></li>
       <li role="presentation"><a href="${pageContext.request.contextPath}/dashboard.jsp">Dashboard</a></li>
-      <li role="presentation"><a href="#">Logout</a></li>
+      <li role="presentation"><a href="${pageContext.request.contextPath}/logout.jsp">Logout</a></li>
     </ul>
   </nav>
   <br>
@@ -48,7 +48,7 @@
       <div class="panel-body">
       <div class="container">
       
-      <form class="form-horizontal" role="form" action="${pageContext.request.contextPath}/rest/topup" method="POST">
+      <form class="form-horizontal" role="form" action="${pageContext.request.contextPath}/rest/topup" method="GET">
       
 	      <input type="hidden" value="<%= cardID %>" name="cardID">
 	      <input type="hidden" value="<%= session.getAttribute("username") %>" name="username">

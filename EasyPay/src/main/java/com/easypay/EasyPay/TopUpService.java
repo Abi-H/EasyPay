@@ -26,7 +26,7 @@ public class TopUpService {
 	@Context
 	private HttpServletRequest request;
 
-	@POST
+	@GET
 	@Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 
@@ -38,7 +38,7 @@ public class TopUpService {
 
 		// Mock up of credit card payment assuming valid transaction
 
-		request.getSession().setAttribute("name", username);
+		request.getSession().setAttribute("username", username);
 
 		Database db = new Database();
 		String urlStr;
