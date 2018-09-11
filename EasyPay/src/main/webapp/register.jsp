@@ -36,7 +36,7 @@
       <div class="panel panel-primary">
       <div class="panel-heading"><center><Strong><h2>Register</h2></Strong></center></div>
       <div class="panel-body">
-      <form action="${pageContext.request.contextPath}/rest/register" method="GET">
+      <form action="${pageContext.request.contextPath}/rest/register" method="POST">
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" name="username" id="email" class="form-control" placeholder="email" required autofocus>
         <br>
@@ -46,7 +46,8 @@
         <label for="inputCardID" class="sr-only">Card Number</label>
         <input type="inputCardID" name="cardID" id="cardID" class="form-control" placeholder="cardID" required auto>
         <br>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+        <input type="submit" class="btn btn-lg btn-primary btn-block" type="submit" value="Register">
+       </form>
     </div>
   </div>
 </div>

@@ -54,7 +54,7 @@
   <div class="container">
       <div class="panel panel-primary text-center">
       <div class="panel-heading"><center><Strong>EasyPay Balance</Strong></center></div>
-        <label for="firstName" placeholder="firstName"><h3><strong><%=session.getAttribute("username")%></strong></h3></label>
+        <label for="firstName" placeholder="firstName"><h3><strong><%=session.getAttribute("username").toString()%></strong></h3></label>
         <br>
         <label for="cardID">
         </label>

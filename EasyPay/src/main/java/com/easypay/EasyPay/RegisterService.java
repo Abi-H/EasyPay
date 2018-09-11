@@ -23,12 +23,11 @@ public class RegisterService {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 
 	public Response process(@QueryParam("email") String email, @QueryParam("cardID") int cardID,
-			@QueryParam("password") String password, @QueryParam("firstName") String firstName,
-			@QueryParam("lastName") String lastName) {
+			@QueryParam("password") String password) {
 
 		try {
 			Database db = new Database();
-			db.addUser(cardID, email, password, firstName, lastName);
+			db.addUser(cardID, email, password);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
