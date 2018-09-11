@@ -55,13 +55,29 @@
 	      
 	      <fieldset>
 	      <legend>Top Up for EasyPay Card ID: <%= cardID %></legend>
+	      <center>
 	      <div class="form-group">
-	        <label class="col-sm-3 control-label" for="amount">Amount</label>
-	          <div class="col-sm-3">
-	          <input type="text" name="amount" class="form-control" name="amount" id="amount" placeholder="Amount to Top Up">
-	          </div>
-	      </div>
-	      
+	          <label class="col-sm-3 control-label" for="amount">Amount</label>
+	          <div class="col-sm-6">
+	          <div class="row">
+	          <div class="col-xs-3">
+	        <select class="form-control col-sm-2" name="amount" id="amount">
+	                <option value="01">10</option>
+	                <option value="02">20</option>
+	                <option value="03">30</option>
+	                <option value="04">40</option>
+	                <option value="05">50</option>
+	                <option value="06">60</option>
+	                <option value="07">70</option>
+	                <option value="08">80</option>
+	                <option value="09">90</option>
+	                <option value="10">100</option>
+	                <option value="11">150</option>
+	                <option value="12">200</option>
+	        </select>
+	        </div>	
+	        </div>
+	        </center>
 	      <div class="form-group">
 	        <label class="col-sm-3 control-label" for="card-holder-name">Name on Card</label>
 	          <div class="col-sm-6">
@@ -82,7 +98,6 @@
 	          <div class="row">
 	          <div class="col-xs-3">
 	        <select class="form-control col-sm-2" name="expiryMonth" id="expiryMonth">
-	                <option>Month</option>
 	                <option value="01">Jan (01)</option>
 	                <option value="02">Feb (02)</option>
 	                <option value="03">Mar (03)</option>
@@ -100,11 +115,6 @@
 	        
 	        <div class="col-xs-3">
 	        <select class="form-control" name="expiryYear">
-	                <option value="13">2013</option>
-	                <option value="14">2014</option>
-	                <option value="15">2015</option>
-	                <option value="16">2016</option>
-	                <option value="17">2017</option>
 	                <option value="18">2018</option>
 	                <option value="19">2019</option>
 	                <option value="20">2020</option>
