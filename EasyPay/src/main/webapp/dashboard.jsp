@@ -58,10 +58,10 @@
         <br>
         <label for="cardID">
         </label>
-        <label for="cardID" placeholder="cardID"><%=cardID%></label>
+        <label for="cardID" placeholder="cardID"><%= cardID %></label>
         <br>
-        <label for="balance">Balance:</label>
-        <label for="balance" placeholder="balance"><%=balance%></label>
+        <label for="balance">Balance: $</label>
+        <label for="balance" placeholder="balance"><%= balance %></label>
         <br>
   <!-- Drop Down Button -->      
         <p>
@@ -80,7 +80,7 @@
           </tr>
         </thead>
         <tbody>
-          <%
+        <%
           	String entry;
           	for(int i = 0; i < fields.size(); i++){ %>
           	
@@ -98,8 +98,9 @@
 	            <td><%= entry %> </td>
 	            
 	            </tr>	            
-          	<% } %>         
+          	<% } %>
         </tbody>
+        
       </table> 
         </div>
         </div>

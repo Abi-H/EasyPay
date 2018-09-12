@@ -22,8 +22,8 @@
   <!-- Nav Bar -->
   <nav class="navbar navbar-fixed-top" role="navigation">
     <ul class="nav nav-tabs">
-      <li role="presentation" class="active"><a href="#">Register</a></li>
-      <li role="presentation"><a href="#">Login</a></li>
+      <li role="presentation" class="active"><a href="${pageContext.request.contextPath}/register.jsp">Register</a></li>
+      <li role="presentation"><a href="${pageContext.request.contextPath}/login.jsp">Login</a></li>
     </ul>
   </nav>
   <br>

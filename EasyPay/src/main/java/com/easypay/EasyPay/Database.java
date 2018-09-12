@@ -12,9 +12,9 @@ public class Database {
 
 	private String dbUrl;
 	private String uname;
-	String password;
-	Connection conn;
-	PreparedStatement preparedStmt;
+	private String password;
+	private Connection conn;
+	private PreparedStatement preparedStmt;
 
 	public Database() throws ClassNotFoundException, SQLException {
 		this.dbUrl = "jdbc:mysql://localhost:3306/easypay";
@@ -233,7 +233,7 @@ public class Database {
 		}
 	}
 
-	public boolean isClosed(Connection conn) {
+	public boolean isClosed() {
 		if (conn != null) {
 			return false;
 		}
