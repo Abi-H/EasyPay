@@ -54,26 +54,25 @@ public class Database {
 	public ArrayList<String> getHistory(int cardID) {
 
 		ArrayList<String> fields = new ArrayList<>();
-		
+
 		String sql = "SELECT * FROM history WHERE cardID=?";
-		
+
 		try {
 			preparedStmt = conn.prepareStatement(sql);
 			preparedStmt.setInt(1, cardID);
 
 			ResultSet rs = preparedStmt.executeQuery();
 
-			while (rs.next()) {				
+			while (rs.next()) {
 				fields.add(rs.getString(2));
 				fields.add(rs.getString(3));
 				fields.add(rs.getDate(4).toString());
 				fields.add(rs.getString(5));
-				
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			
+
 		} finally {
 			try {
 				preparedStmt.close();
@@ -85,10 +84,9 @@ public class Database {
 		return fields;
 	}
 
-
 	public void updateBalance(String username, double amount) {
 		String sql = "SELECT balance FROM users WHERE username = ?";
-		
+
 		try {
 			preparedStmt = conn.prepareStatement(sql);
 			preparedStmt.setString(1, username);
@@ -104,7 +102,7 @@ public class Database {
 
 				preparedStmt = conn.prepareStatement(sql);
 				preparedStmt.setDouble(1, updatedBalance);
-				preparedStmt.setString(2,  username);
+				preparedStmt.setString(2, username);
 				preparedStmt.executeUpdate();
 			}
 
@@ -137,7 +135,7 @@ public class Database {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			
+
 		} finally {
 			try {
 				preparedStmt.close();
@@ -161,7 +159,7 @@ public class Database {
 				String result = rs.getString("cardID");
 				return result;
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -175,21 +173,21 @@ public class Database {
 
 		return null;
 	}
-	
+
 	public String getBalance(String username) {
 		String sql = "SELECT balance FROM users WHERE username=?";
-		
+
 		try {
 			preparedStmt = conn.prepareStatement(sql);
 			preparedStmt.setString(1, username);
 			ResultSet rs = preparedStmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				Double result = rs.getDouble("balance");
 				String roundedResult = String.format("%.2f", result);
 				return roundedResult;
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -200,11 +198,28 @@ public class Database {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return "FAIL";
 	}
-	
+
 	public boolean checkExistingAccount(String username, int cardID) {
+		String sql = "SELECT cardID, username FROM users WHERE cardID=? OR username=?";
+
+		try {
+			preparedStmt = conn.prepareStatement(sql);
+			preparedStmt.setString(1, username);
+			preparedStmt.setInt(2, cardID);
+
+			ResultSet rs = preparedStmt.executeQuery();
+
+			if (rs.next()) {
+				return true;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		return false;
 	}
 
