@@ -52,5 +52,14 @@ public class DashboardTest {
 		}
 
 	}
-
+	
+	@Test
+	public void testGetCardID() throws ClassNotFoundException, SQLException {
+		DummyDatabase db = new DummyDatabase();
+		String validUsername = "test@test.com";
+		String invalidUsername = "invalid@test.com";
+		
+		assertNotNull(db.getCardId(validUsername));
+		assertNull(db.getCardId(invalidUsername));
+	}
 }
