@@ -5,21 +5,21 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class Database {
 
 	private String dbUrl;
 	private String uname;
-	String password;
-	Connection conn;
-	ArrayList<String> fields;
+	private String password;
+	private Connection conn;
+	private PreparedStatement preparedStmt;
 
 	public Database() throws ClassNotFoundException, SQLException {
 		this.dbUrl = "jdbc:mysql://localhost:3306/easypay";
 		this.uname = "root";
 		this.password = "";
-		fields = new ArrayList<>();
 		Class.forName("com.mysql.jdbc.Driver");
 		conn = DriverManager.getConnection(dbUrl, uname, password);
 	}
@@ -27,14 +27,13 @@ public class Database {
 	public boolean checkCredentials(String user, String pass) {
 		try {
 			String sql = "SELECT username,password FROM users WHERE username=? AND password=?";
-			PreparedStatement preparedStmt = conn.prepareStatement(sql);
+			preparedStmt = conn.prepareStatement(sql);
 			preparedStmt.setString(1, user);
 			preparedStmt.setString(2, pass);
 
 			ResultSet rs = preparedStmt.executeQuery();
 
 			if (rs.next()) {
-				System.out.println("Credentials valid ***********************************");
 				return true;
 			}
 
@@ -42,6 +41,7 @@ public class Database {
 			e.printStackTrace();
 		} finally {
 			try {
+				preparedStmt.close();
 				conn.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -51,54 +51,59 @@ public class Database {
 		return false;
 	}
 
-	public ArrayList<String> getHistory(int cardID){
+	public ArrayList<String> getHistory(int cardID) {
 
-			ArrayList<String> fields = new ArrayList<>();
-			String sql = "SELECT date, amount FROM history WHERE cardID=?";
-			try {
-			PreparedStatement preparedStmt = conn.prepareStatement(sql);
+		ArrayList<String> fields = new ArrayList<>();
+
+		String sql = "SELECT * FROM history WHERE cardID=?";
+
+		try {
+			preparedStmt = conn.prepareStatement(sql);
 			preparedStmt.setInt(1, cardID);
 
 			ResultSet rs = preparedStmt.executeQuery();
 
 			while (rs.next()) {
-				fields.add(rs.getDate("date").toString());
-				fields.add(rs.getBigDecimal("amount").toString());
+				fields.add(rs.getString(2));
+				fields.add(rs.getString(3));
+				fields.add(rs.getDate(4).toString());
+				fields.add(rs.getString(5));
 			}
-			
-			System.out.println("Retrieved history.");
-			} catch (Exception e) {
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			try {
+				preparedStmt.close();
+				conn.close();
+			} catch (SQLException e) {
 				e.printStackTrace();
-			} finally {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}			
-			return fields;
+			}
+		}
+		return fields;
 	}
 
-	public void updateBalance(int cardID, double amount) {
-		String sql = "SELECT balance FROM users WHERE cardID = ?";
-		double updatedBalance;
+	public void updateBalance(String username, double amount) {
+		String sql = "SELECT balance FROM users WHERE username = ?";
 
 		try {
-			PreparedStatement preparedStmt = conn.prepareStatement(sql);
-			preparedStmt.setInt(1, cardID);
+			preparedStmt = conn.prepareStatement(sql);
+			preparedStmt.setString(1, username);
 
 			ResultSet rs = preparedStmt.executeQuery();
 
 			if (rs.next()) {
+				double updatedBalance;
 				updatedBalance = rs.getDouble("balance");
 				updatedBalance += amount;
-				sql = "UPDATE users SET balance = ? WHERE cardID = ?";
+
+				sql = "UPDATE users SET balance=? WHERE username=?";
 
 				preparedStmt = conn.prepareStatement(sql);
 				preparedStmt.setDouble(1, updatedBalance);
-				preparedStmt.setInt(2, cardID);
+				preparedStmt.setString(2, username);
 				preparedStmt.executeUpdate();
-				System.out.println("Updated balance.");
 			}
 
 		} catch (SQLException e) {
@@ -106,6 +111,7 @@ public class Database {
 
 		} finally {
 			try {
+				preparedStmt.close();
 				conn.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -114,41 +120,111 @@ public class Database {
 
 	}
 
-	public ArrayList<String> getFields() {
-		System.out.println("Returning arraylist of size " + fields.size());
-		return fields;
-	}
-
-	public void addUser(int cardID, String email, String password, String firstName, String lastName) {
+	public void addUser(int cardID, String email, String password) {
 		double balance = 0;
-		String sql = "INSERT INTO users(cardID, email, password, firstName, lastName, balance) VALUES (?,?,?,?,?,?)";
+		String sql = "INSERT INTO users(cardID, email, password, balance) VALUES (?,?,?,?)";
 
 		try {
-			PreparedStatement preparedStmt = conn.prepareStatement(sql);
+			preparedStmt = conn.prepareStatement(sql);
 			preparedStmt.setInt(1, cardID);
 			preparedStmt.setString(2, email);
 			preparedStmt.setString(3, password);
-			preparedStmt.setString(4, firstName);
-			preparedStmt.setString(5, lastName);
 			preparedStmt.setDouble(6, balance);
 
 			preparedStmt.executeUpdate();
-			System.out.println("Added user.");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			try {
+				preparedStmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	public String getCardId(String username) {
+		String sql = "SELECT cardID FROM users WHERE username=?";
+
+		try {
+			preparedStmt = conn.prepareStatement(sql);
+			preparedStmt.setString(1, username);
+			ResultSet rs = preparedStmt.executeQuery();
+
+			if (rs.next()) {
+				String result = rs.getString("cardID");
+				return result;
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
+				preparedStmt.close();
 				conn.close();
-			} catch (SQLException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 
+		return null;
 	}
-	
+
+	public String getBalance(String username) {
+		String sql = "SELECT balance FROM users WHERE username=?";
+
+		try {
+			preparedStmt = conn.prepareStatement(sql);
+			preparedStmt.setString(1, username);
+			ResultSet rs = preparedStmt.executeQuery();
+
+			if (rs.next()) {
+				Double result = rs.getDouble("balance");
+				String roundedResult = String.format("%.2f", result);
+				return roundedResult;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				preparedStmt.close();
+				conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return "FAIL";
+	}
+
+	public boolean checkExistingAccount(String username, int cardID) {
+		String sql = "SELECT cardID, username FROM users WHERE cardID=? OR username=?";
+
+		try {
+			preparedStmt = conn.prepareStatement(sql);
+			preparedStmt.setString(1, username);
+			preparedStmt.setInt(2, cardID);
+
+			ResultSet rs = preparedStmt.executeQuery();
+
+			if (rs.next()) {
+				return true;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+
 	public void closeConnection(Connection conn) {
-		if(conn != null) {
+		if (conn != null) {
 			try {
 				conn.close();
 			} catch (SQLException e) {
@@ -156,12 +232,12 @@ public class Database {
 			}
 		}
 	}
-	
-	public boolean isClosed(Connection conn) {
+
+	public boolean isClosed() {
 		if (conn != null) {
 			return false;
 		}
-		
+
 		return true;
 	}
 }

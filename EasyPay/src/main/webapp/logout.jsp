@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<% 
+	if(session != null){
+		session.invalidate();
+	} 
+%>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -22,8 +27,8 @@
   <!-- Nav Bar -->
   <nav class="navbar navbar-fixed-top" role="navigation">
     <ul class="nav nav-tabs">
-      <li role="presentation" class="active"><a href=#">Logout</a></li>
-      <li role="presentation"><a href="#">Login</a></li>
+      <li role="presentation" class="active"><a href="${pageContext.request.contextPath}/logout.jsp">Logout</a></li>
+      <li role="presentation"><a href="${pageContext.request.contextPath}/login.jsp">Login</a></li>
     </ul>
   </nav>
   <br>
@@ -34,11 +39,7 @@
   <!-- Sign in Box, created using panel -->
   <div class="container">
     <div class="panel panel-primary">
-      <div class="panel-heading"><center><Strong><h2>You have successfully logged out!</h2></Strong></center></div>
-      <div class="panel-body">
-        <br>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">To log in again, click this button.</button>
-    </div>
+      <div class="panel-heading"><center><Strong><h2>You have successfully logged out</h2></Strong></center></div>
   </div>
 </div>
     <!-- FOOTER -->

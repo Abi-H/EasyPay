@@ -7,6 +7,8 @@ import java.net.URL;
 import java.sql.SQLException;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -23,6 +25,8 @@ import javax.ws.rs.core.UriBuilder;
 public class LoginService {
 	@Context
 	private ServletContext context;
+	@Context 
+	private HttpServletRequest request;
 	
 	@GET
 	@Produces(MediaType.TEXT_HTML)
@@ -33,22 +37,18 @@ public class LoginService {
 		Database db = new Database();
 		URI uri;
 		
-		System.out.println("SearchToken Starting EasyPay LoginService**********************************");
+		request.getSession().setAttribute("username", username);
 		
 		if(db.checkCredentials(username, password)) {
-			System.out.println("SearchToken Valid EasyPay login************************************");
-			String urlStr = "http://localhost:8080/easypay/" + "dashboard.jsp" + "?name=" + username;
-			URL url= new URL(urlStr);			
-			uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
-		} else {
-			System.out.println("SearchToken Invalid EasyPay login************************************");
-			uri = UriBuilder.fromPath(context.getContextPath() + "/login.jsp").build();
+						
+			String urlStr = "http://localhost:8080/EasyPay" + "/dashboard.jsp" + "?name=" + username;
 			
-			// Added in for debugging/*
-			/*String urlStr = "http://localhost:8080/easypay/" + "dashboard.jsp" /*+ "?name=" + username;
+			//Encode URL
 			URL url= new URL(urlStr);			
 			uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
-			//------------------------------------*/
+			
+		} else {
+			uri = UriBuilder.fromPath(context.getContextPath() + "/login.jsp").build();
 		}
 		
 		return Response.seeOther(uri).build();

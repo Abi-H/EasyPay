@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -37,13 +38,15 @@
       <div class="panel-heading"><center><Strong><h2>Sign in</h2></Strong></center></div>
       <div class="panel-body">
       	<form action="${pageContext.request.contextPath}/rest/login" method="GET">
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" name ="username" id="email" class="form-control" placeholder="email" required autofocus>
-        <br>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" name="password" id="password" class="form-control" placeholder="password" required auto>
-        <br>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+	        <label for="inputEmail" class="sr-only">Email address</label>
+	        <input type="email" name ="username" id="email" class="form-control" placeholder="email" required autofocus>
+	        <br>
+	        <label for="inputPassword" class="sr-only">Password</label>
+	        <input type="password" name="password" id="password" class="form-control" placeholder="password" required auto>
+	        <br>
+	        <input type = "hidden" name ="session" value = "12345">
+	        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+        </form>
     </div>
   </div>
 </div>

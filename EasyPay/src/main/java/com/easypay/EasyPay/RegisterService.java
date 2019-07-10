@@ -1,6 +1,7 @@
 package com.easypay.EasyPay;
 
 import java.net.URI;
+import java.sql.SQLException;
 
 import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
@@ -23,17 +24,22 @@ public class RegisterService {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 
 	public Response process(@QueryParam("email") String email, @QueryParam("cardID") int cardID,
-			@QueryParam("password") String password, @QueryParam("firstName") String firstName,
-			@QueryParam("lastName") String lastName) {
+			@QueryParam("password") String password) throws ClassNotFoundException, SQLException {
 
-		try {
-			Database db = new Database();
-			db.addUser(cardID, email, password, firstName, lastName);
-		} catch (Exception e) {
-			e.printStackTrace();
+		URI uri;
+
+		Database db = new Database();
+
+		if (!db.checkExistingAccount(email, cardID)) {
+			db.addUser(cardID, email, password);
+			uri = UriBuilder.fromPath(context.getContextPath() + "/login.jsp").build();
+			
+			return Response.seeOther(uri).build();
+			
+		} else {
+			uri = UriBuilder.fromPath(context.getContextPath() + "/register.jsp").build();
 		}
 
-		URI uri = UriBuilder.fromPath(context.getContextPath() + "/login.jsp").build();
-		return Response.seeOther(uri).build();		
+		return Response.seeOther(uri).build();
 	}
 }
